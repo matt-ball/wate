@@ -1,9 +1,21 @@
-const mysql = require('mysql2/promise')
-const creds = require('../../mysql')
+const knex = require('../../db/')
 
 module.exports = async function del (req, res) {
   const { id } = req.params
-  const connection = await mysql.createConnection(creds)
-  const [rows] = await connection.execute('DELETE FROM `queue` WHERE `id` = ?', [id])
-  res.send(rows)
+  const result = await knex()
+    .del()
+    .from('queue')
+    .where({ id })
+
+  if (result) {
+    res.send({
+      status: '200',
+      message: `User of ID: ${id} deleted`
+    })
+  } else {
+    res.send({
+      status: '404',
+      message: `User of ID: ${id} not found`
+    })
+  }
 }

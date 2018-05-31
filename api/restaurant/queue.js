@@ -1,17 +1,19 @@
-const mysql = require('mysql2/promise')
-const creds = require('../../mysql')
+const knex = require('../../db/')
+const addPosition = require('../lib/add-position')
 
 module.exports = async function restaurantQueue (req, res) {
   const { id } = req.params
-  const connection = await mysql.createConnection(creds)
-  const [rows] = await connection.execute('SELECT * FROM `queue` WHERE `restaurant` = ?', [id])
-  const queue = rows.map(addPosition)
-  
-  res.send(queue)
-}
+  const queue = await knex()
+    .select()
+    .from('queue')
+    .where('restaurant', id)
 
-function addPosition (person, i) {
-  return Object.assign(person, {
-    position: i + 1
-  })
+  if (queue.length) {
+    res.send(queue.map(addPosition))
+  } else {
+    res.send({
+      status: '404',
+      message: `Restaurant of ID: ${id} not found`
+    })
+  }
 }

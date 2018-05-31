@@ -1,24 +1,26 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const api = require('./api')
 const app = express()
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+try {
+  app.get('/', (req, res) => {
+    res.send('Hello World!')
+  })
 
-app.get('/api/restaurant/:id', api.restaurant.get)
-app.get('/api/restaurant/:id/queue', api.restaurant.queue)
-app.post('/api/restaurant/add', api.restaurant.add)
+  app.get('/api/restaurant/:id', require('./api/restaurant/get'))
+  app.get('/api/restaurant/:id/queue', require('./api/restaurant/queue'))
+  app.post('/api/restaurant/add', require('./api/restaurant/add'))
 
-app.get('/api/queue/:id', api.queue.get)
-app.get('/api/queue/del/:id', api.queue.del)
-app.post('/api/queue/add', api.queue.add)
+  app.get('/api/queue/:id', require('./api/queue/get'))
+  app.get('/api/queue/del/:id', require('./api/queue/del'))
+  app.post('/api/queue/add', require('./api/queue/add'))
+} catch (e) {
+  console.log(e)
+}
 
 app.listen(3000, () => {
   console.log('Example app listening on port 3000!')
 })
-
