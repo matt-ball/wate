@@ -1,0 +1,24 @@
+{
+  "name": "wate",
+  "version": "0.0.1",
+  "description": "A restaurant queueing app.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matt-ball/wate.git"
+  },
+  "author": "Matt Ball",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matt-ball/wate/issues"
+  },
+  "homepage": "https://github.com/matt-ball/wate#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mysql2": "^1.5.3"
+  }
+}
