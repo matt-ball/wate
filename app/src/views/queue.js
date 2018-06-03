@@ -2,14 +2,16 @@ import React from 'react'
 import queue from '../actions/queue'
 
 class Queue extends React.Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
+    this.getQueue = this.getQueue.bind(this)
+
     this.state = {
       details: []
     }
   }
 
-  getQueue = (id) => {
+  getQueue (id) {
     queue.get(id).then((data) => {
       const { name, restaurant, position } = data.data
 

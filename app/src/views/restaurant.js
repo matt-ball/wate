@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import restaurant from '../actions/restaurant'
 
 class Restaurant extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
       details: []
     }
